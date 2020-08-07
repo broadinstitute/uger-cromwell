@@ -9,7 +9,8 @@ task haplotypeCaller {
   String sampleName
   File inputBAM
   File bamIndex
-  Int memory_gb
+  String memory
+  Int cpu
   command {
     gatk HaplotypeCaller \
         -R ${RefFasta} \
@@ -20,9 +21,9 @@ task haplotypeCaller {
     File rawVCF = "${sampleName}.raw.indels.snps.vcf"
   }
   runtime {
-        docker: "broadinstitute/gatk"
-        memory_gb: memory_gb
-        memory: memory_gb + "GB"
+        docker: "broadinstitute/gatk@sha256:8051adab0ff725e7e9c2af5997680346f3c3799b2df3785dd51d4abdd3da747b"
+        memory: memory
+        cpu: cpu
   }
 
 }

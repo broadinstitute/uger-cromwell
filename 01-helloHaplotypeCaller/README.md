@@ -7,7 +7,7 @@ Following the WDL tutorial we will generate an inputs.json file to tell cromwell
 Assuming all of the steps before were followed, we are currently sitting in this cloned repo somwhere on NFS storage on a UGER compute node. We then run the following to generate an inputs.json file for the first tutorial example:
 
 ```
-$ java -jar womtool-36.jar inputs 01-helloHaplotypeCaller/helloHaplotypeCaller.wdl
+java -jar womtool-52.jar inputs 01-helloHaplotypeCaller/helloHaplotypeCaller.wdl > 01-helloHaplotypeCaller/helloHaplotypeCaller_inputs.json
 ```
 
 Editing 01-helloHaplotypeCaller/helloHaplotypeCaller_inputs.json with our favorite editor we can now specify our input file locations as well as how much memory UGER and PAPIvW will use when running this job.
@@ -20,16 +20,17 @@ An example using hptmp could look like the following:
   "helloHaplotypeCaller.haplotypeCaller.bamIndex": "/broad/hptmp/<your_username>/helloHaplotypeCaller/inputs/NA12878_wgs_20.bai",
   "helloHaplotypeCaller.haplotypeCaller.RefIndex": "/broad/hptmp/<your_username>/helloHaplotypeCaller/ref/human_g1k_b37_20.fasta.fai",
   "helloHaplotypeCaller.haplotypeCaller.RefDict": "/broad/hptmp/<your_username>/helloHaplotypeCaller/ref/human_g1k_b37_20.dict",
-  "helloHaplotypeCaller.haplotypeCaller.memory_gb": "4",
   "helloHaplotypeCaller.haplotypeCaller.inputBAM": "/broad/hptmp/<your_username>/helloHaplotypeCaller/inputs/NA12878_wgs_20.bam",
   "helloHaplotypeCaller.haplotypeCaller.sampleName": "NA12878"
+  "helloHaplotypeCaller.haplotypeCaller.memory": "4 GB",
+  "helloHaplotypeCaller.haplotypeCaller.cpu": "1"
 }
 ```
 
 We are now ready to submit our first WDL using cromwell to UGER.
 
 ```
-$ java -Dconfig.file=uger.conf -jar cromwell-36.jar run 01-helloHaplotypeCaller/helloHaplotypeCaller.wdl -i 01-helloHaplotypeCaller/helloHaplotypeCaller_inputs.json
+$ java -Dconfig.file=uger.conf -jar cromwell-52.jar run 01-helloHaplotypeCaller/helloHaplotypeCaller.wdl -i 01-helloHaplotypeCaller/helloHaplotypeCaller_inputs.json
 ```
 
 You should see a bunch of cromwell logs log to stdout and eventually lines similar to the following if everything worked correctly:
